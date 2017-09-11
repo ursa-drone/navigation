@@ -559,6 +559,7 @@ namespace move_base {
         ROS_DEBUG_NAMED("move_base_plan_thread","Planner thread is suspending");
         planner_cond_.wait(lock);
         wait_for_wake = false;
+        if (state_!=CLEARING) state_=PLANNING;
       }
       ros::Time start_time = ros::Time::now();
 
@@ -896,7 +897,6 @@ namespace move_base {
         
         {
          boost::unique_lock<costmap_2d::Costmap2D::mutex_t> lock(*(controller_costmap_ros_->getCostmap()->getMutex()));
-        
         if(tc_->computeVelocityCommands(cmd_vel)){
           ROS_DEBUG_NAMED( "move_base", "Got a valid command from the local planner: %.3lf, %.3lf, %.3lf",
                            cmd_vel.linear.x, cmd_vel.linear.y, cmd_vel.angular.z );
@@ -932,7 +932,7 @@ namespace move_base {
           }
         }
         }
-
+        ROS_DEBUG_NAMED("move_base","FIN");
         break;
 
       //we'll try to clear out space with any user-provided recovery behaviors
