@@ -77,4 +77,14 @@ namespace base_local_planner {
   unsigned int Trajectory::getPointsSize() const {
     return x_pts_.size();
   }
+
+  unsigned int Trajectory::getIndex(){
+    return index_;
+  }
+      
+  void Trajectory::setIndex(unsigned int index){
+    index_=index;
+  }
+
+
 };

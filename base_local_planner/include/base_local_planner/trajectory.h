@@ -108,10 +108,14 @@ namespace base_local_planner {
        */
       unsigned int getPointsSize() const;
 
+      unsigned int getIndex();
+      void setIndex(unsigned int index);
+
     private:
       std::vector<double> x_pts_; ///< @brief The x points in the trajectory
       std::vector<double> y_pts_; ///< @brief The y points in the trajectory
       std::vector<double> th_pts_; ///< @brief The theta points in the trajectory
+      unsigned int index_;
 
   };
 };
